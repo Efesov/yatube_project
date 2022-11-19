@@ -13,7 +13,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- Подключен файл со стандартными стилями бустрап -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <title>Последние обновления на сайте</title>
+    <title>{% block title %} {% endblock %}</title>
   </head>
   <body>
     <header>
@@ -21,7 +21,7 @@
     </header>
     <main> 
       {% block content %}
-      Информация Сайта
+      Инфо Сайта
       {% endblock %}
     </main>
     <!-- Использованы классы бустрапа: -->

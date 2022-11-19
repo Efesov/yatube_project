@@ -5,12 +5,19 @@ from django.template import loader
 
 def index(request):
     template = 'posts/index.html'
-    return render(request, template)
+    OneG = 'Это главная страница проекта Yatube'
+    context = {
+        # В словарь можно передать переменную
+        'OneG': OneG,
+        # А можно сразу записать значение в словарь. Но обычно так не делают
+        'info': 'info',}
+    return render(request, template, context)
 
 
-def group_posts(request, pk):
+def group_posts(request):
     template = 'posts/group_list.html'
-    return render(request, template)
-    
-
-# Create your views here.
+    info = 'Здесь будет информация о группах проекта Yatube'
+    context = {
+        'info': info,
+    }
+    return render(request, template, context)
