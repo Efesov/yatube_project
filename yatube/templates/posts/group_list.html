@@ -1,32 +1,29 @@
 {% extends 'base.html' %}
-<!DOCTYPE html> <!-- Используется html 5 версии -->
-<html lang="ru"> <!-- Язык сайта - русский -->
-  <head>    
-    <meta charset="utf-8"> <!-- Кодировка сайта -->
-    <!-- Сайт готов работать с мобильными устройствами -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Загружаем фав-иконки -->
-    <link rel="icon" href="img/fav/fav.ico" type="image">
-    <link rel="apple-touch-icon" sizes="180x180" href="img/fav/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="img/fav/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="img/fav/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#000">
-    <meta name="theme-color" content="#ffffff">
-    <!-- Подключен файл со стандартными стилями бустрап -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-  </head>
-  <body>
-    <main> 
-      {% block content %}    
-      <!-- класс py-5 создает отступы сверху и снизу блока -->
-      <div class="container py-5">     
-        <h1>Лев Толстой – зеркало русской революции.</h1>
-        <article>
-          <ul>
-            <li>
-            
-        </article>
-        <!-- под последним постом нет линии -->
-      </div>  
-      {% endblock %}
-    </main>
+
+{%block title%}
+  Записи сообщества {{ group }}
+{% endblock %}
+
+{% block content %}
+<main>
+  <div class="container py-5">
+    <h1>{{ group }}</h1>
+    <p>{{ group.description }}</p>
+      {% for post in posts %}
+        <ul>
+          <li>
+            Автор: {{ post.author.get_full_name }}
+          </li>
+          <li>
+            Дата публикации: {{ post.pub_date|date:"d E Y" }}
+          </li>
+        </ul>
+      <p>{{ post.text }}</p>
+      {% if post.group %}
+      <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+      {% endif %}
+      {% if not forloop.last %}<hr>{% endif %}
+      {% endfor %}
+  </div>
+</main>
+{% endblock %}
